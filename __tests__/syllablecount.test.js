@@ -5,28 +5,31 @@ describe('Syllable Count', () => {
     let testWord;
 
     beforeEach(() => {
-        testWord = new Syllable("ear",2);
+        testWord = new Syllable("street",1);
     })
   test('A. Should correctly create a Syllable object', () => {
-    expect(testWord.word).toEqual("ear");
-    expect(testWord.syllables).toEqual(2);
+    expect(testWord.word).toEqual("street");
+    expect(testWord.syllables).toEqual(1);
   });
   test('B.  Should correctly split syllable object into letter array', () => {
-    expect((testWord.word).split("")).toEqual(["e","a","r"]);  
+    expect((testWord.word).split("")).toEqual(["s","t","r","e","e","t"]);  
   });
-  test('C.  Should correctly find the next vowel', () => {
-    testWord.findNextVowel();
+  test('C.  Should correctly find the next consonant', () => {
     expect(testWord.syllables).toEqual(1);  
   });
-  let testWord1;
-  beforeEach(() => {
-    testWord1 = new Syllable("street",1);
-  })
-  test('D.  Should correctly find the next vowel', () => {
-    testWord1.findNextVowel();
-    expect(testWord1.syllables).toEqual(1);  
+  test('D.  Should correctly count syllables by counting first vowel then vowels after consonants that are not a final e', () => {
+    testWord = new Syllable("beater",1);
+    testWord.findNextVowel();
+    expect(testWord.syllables).toEqual(2);  
   });
-  test('E.  Should correctly find the subsequent vowel', () => {
-    expect(testWord1.findNextVowel()).toEqual("yippee");  
+  test('E.  Should correctly manage employee', () => {
+    testWord = new Syllable("employee",0);
+    testWord.findNextVowel();
+    expect(testWord.syllables).toEqual(3);  
+  });
+  test('E.  Should correctly manage prism', () => {
+    testWord = new Syllable("prism",0);
+    testWord.findNextVowel();
+    expect(testWord.syllables).toEqual(2);  
   });
 });
