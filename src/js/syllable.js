@@ -13,7 +13,10 @@ export default class Syllable {
         this.syllables = count;
         i = this.findNextConsonant(i);
       };
-    };    
+    };
+    if(count===0) {   //if the word has no vowels        
+      this.handleExceptions(splitWord,splitWord.length);
+    }    
   } 
   findNextConsonant(i) {
     let splitWord = (this.word).split("");
@@ -45,18 +48,18 @@ export default class Syllable {
       if(/i/.test(splitWord[j-3])&&(/r/.test(splitWord[j-2]))) {
         this.syllables = this.syllables + 1;   
       }
-    }  
-      /*else {
-          j = splitWord.length-2
-      }*/
-    //}
-    //forEach(exceptionWords) { need to find out the syntax
-    /*for(k=0; k<exceptionWords.length; k++) {
-      if()
     }
-    }*/
+    if((j>splitWord.length-3)&&(/s/.test(splitWord[splitWord.length-2]))&&(/m/.test(splitWord[splitWord.length-1]))) {
+      this.syllables = this.syllables + 1; 
+    } 
+    for(let k = 0; k<exceptionWords.length; k=k+1) {
+      if(exceptionWords[k][0]===this.word) {
+        this.syllables = exceptionWords[k][1];
+        j = splitWord.length;
+        return j;
+      }
+    } 
   return j
-  }
-  
+  } 
 }
-const exceptionWords = [["ear",2],["eel",2],["hmm",1],"fire","tiara"]
+const exceptionWords = [["ear",2],["eel",2],["hmm",1],["tiara",3]]
