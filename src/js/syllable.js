@@ -4,7 +4,7 @@ export default class Syllable {
       this.syllables = syllables;
     }
     
-  findNextVowel(){
+  findNextVowel(){  //if it finds a vowel it adds 1 syllable
     let count =0;
     let splitWord = (this.word).split("");
     for(let i = 0; i<splitWord.length; i++) {
@@ -19,27 +19,44 @@ export default class Syllable {
     let splitWord = (this.word).split("");
     let j;
     if(i<(splitWord.length)) {   //checks if at the end of the word
-      for(j = i+1; j<(splitWord.length); j++) {  //finds next consonant
-        if(/[aeiouy]/.test(splitWord[j])===false) {
-          if(/e/.test(splitWord[j+1])&&(j+1 === (splitWord.length-1))){ 
-            j = splitWord.length;
-            i = j;
-          }
-          if(/s/.test(splitWord[j])&&((/m/.test(splitWord[j+1]))&&(j+1 === (splitWord.length-1)))) {
-            this.syllables = this.syllables + 1;
-            i=j;
-            return i   
-          }
-          else {
-            i=j;
-            return i
+      for(j = i+1; j<(splitWord.length); j++) {  
+        if(/[aeiouy]/.test(splitWord[j])===false) {  //finds next consonant   
+          j = this.handleExceptions(splitWord,j);
+          i=j;
+          return i;
+        }
+        //return i; //goes back to find next vowel
+        /*else {
+          if (j===(splitWord.length-1)) {
+            this.syllables = this.syllables + 1  // if no consonants add 1 to syllable count (employee) 
           }  
-        } 
+        }*/
       }
       this.syllables = this.syllables + 1   
     }  
     i = j
     return i //if it finds a consonant it returns to find next vowel  
-      //count = count + 1 // if no consonants add 1 to syllable count (employee)    
-  } 
+      //count = count + 1    
+  }
+  handleExceptions(splitWord,j) {
+    if(/e/.test(splitWord[j+1])&&
+      (j+1 === (splitWord.length-1))) { // if e is last letter and we are at penultimate letter stop counting
+      j = splitWord.length
+      if(/i/.test(splitWord[j-3])&&(/r/.test(splitWord[j-2]))) {
+        this.syllables = this.syllables + 1;   
+      }
+    }  
+      /*else {
+          j = splitWord.length-2
+      }*/
+    //}
+    //forEach(exceptionWords) { need to find out the syntax
+    /*for(k=0; k<exceptionWords.length; k++) {
+      if()
+    }
+    }*/
+  return j
+  }
+  
 }
+const exceptionWords = [["ear",2],["eel",2],["hmm",1],"fire","tiara"]
