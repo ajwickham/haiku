@@ -55,6 +55,6 @@ describe('Syllable Count', () => {
   test('K.  Should correctly manage a list of exception words', () => {
     testWord = new Syllable("hmm",0);
     testWord.findNextVowel();
-    expect(testWord.syllables).toEqual(1);  
+    expect(testWord.syllables).toEqual(1);
   });
 });
