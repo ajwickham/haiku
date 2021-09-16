@@ -1,4 +1,4 @@
-import Syllable from '../src/js/syllable';
+import Syllable from './syllable';
 
 export default class Haiku {
     constructor(firstLine, secondLine, thirdLine) {
@@ -9,12 +9,12 @@ export default class Haiku {
 
    
   getWords(){  //returns an array of arrays of words with syllable countst from a line
-    let x = this.firstLine.split(" ");
-    for(let i = 0; i<x.length; i++) {
-      let y = new Syllable(x[i],0);
+    let x = [this.firstLine.split(" ")[0]];
+      //for(let i = 0; i<x.length; i++) {
+     /* let y = new Syllable(x[0],0);
       y.findNextVowel()
-      x[i] = y;
-    }
+      x[i] = [y.word];
+    }*/
     return x
   }
   countSyllables(){
