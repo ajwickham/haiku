@@ -8,7 +8,7 @@ export default class Syllable {
     let count =0;
     let splitWord = (this.word).split("");
     for(let i = 0; i<splitWord.length; i++) {
-      if(/[aeiouy]/.test(splitWord[i])) {
+      if(/[aeiouyAEIOU]/.test(splitWord[i])) {
         count = count + 1;
         this.syllables = count;
         i = this.findNextConsonant(i);

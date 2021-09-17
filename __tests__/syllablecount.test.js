@@ -58,14 +58,19 @@ describe('Syllable Count', () => {
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(1);
   });
+  test('Tester.  Should correctly manage a list of exception words', () => {
+    testWord = new Syllable("An",0);
+    testWord.findNextVowel();
+    expect(testWord.syllables).toEqual(1);
+  });
   let haiku;
 
   beforeEach(() => {
       haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
   })
 
-test('L. should correctly return the first word of the first line ', () => {
-  expect(haiku.getWords()).toEqual(["An"]);
+test('L. should correctly return the first word of the first line and count the syllables ', () => {
+  expect(haiku.getWords()).toEqual(["An",1]);
 });  
 test('should correctly split first line into words and calculate the number of syllables', () => {
   expect(haiku.getWords()).toEqual([["An",1],["old",1],["silent",2],["pond",1]]);
