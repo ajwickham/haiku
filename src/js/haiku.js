@@ -9,11 +9,12 @@ export default class Haiku {
 
    
   getWords(){  //returns an array of arrays of words with syllable countst from a line
-    let x = [this.firstLine.split(" ")[0]];
-      //for(let i = 0; i<x.length; i++) {
-    let y = new Syllable('An',0);
-    y.findNextVowel();
-    x.push(y.syllables);
+    let x = [];
+    for(let i = 0; i<this.firstLine.split(" ").length; i++) {
+      let y = new Syllable(this.firstLine.split(" ")[i],0);
+      y.findNextVowel();
+      x.push([y.word,y.syllables]);
+    };  
     return x
   }
   countSyllables(){

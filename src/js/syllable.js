@@ -23,7 +23,7 @@ export default class Syllable {
     let j;
     if(i<(splitWord.length)) {   //checks if at the end of the word
       for(j = i+1; j<(splitWord.length); j++) {  
-        if(/[aeiouy]/.test(splitWord[j])===false) {  //finds next consonant   
+        if(/[aeiouyAEIOU]/.test(splitWord[j])===false) {  //finds next consonant   
           j = this.handleExceptions(splitWord,j);
           i=j;
           return i;

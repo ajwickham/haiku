@@ -65,13 +65,17 @@ describe('Syllable Count', () => {
   });
   let haiku;
 
-  beforeEach(() => {
-      haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
-  })
+  
 
 test('L. should correctly return the first word of the first line and count the syllables ', () => {
-  expect(haiku.getWords()).toEqual(["An",1]);
-});  
+  haiku = new Haiku("An");
+  expect(haiku.getWords()).toEqual([["An",1]]);
+}); 
+
+beforeEach(() => {
+  haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
+}) 
+
 test('should correctly split first line into words and calculate the number of syllables', () => {
   expect(haiku.getWords()).toEqual([["An",1],["old",1],["silent",2],["pond",1]]);
 });
