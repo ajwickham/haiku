@@ -19,12 +19,12 @@ describe('Syllable Count', () => {
     expect(testWord.syllables).toEqual(1);  
   });
   test('D.  Should correctly count syllables by counting first vowel then vowels after consonants that are not a final e', () => {
-    testWord = new Syllable("beater",1);
+    testWord = new Syllable("beater",0);
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(2);  
   });
   test('E.  Should correctly count syllables by counting first vowel then vowels after consonants that are not a final e', () => {
-    testWord = new Syllable("Africa",1);
+    testWord = new Syllable("Africa",0);
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(3);  
   });
@@ -34,14 +34,19 @@ describe('Syllable Count', () => {
     expect(testWord.syllables).toEqual(3);  
   });
   test('G.  Should correctly manage same', () => {
-    testWord = new Syllable("same",1);
+    testWord = new Syllable("same",0);
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(1);  
   });
   test('H.  Should correctly manage adventure', () => {
-    testWord = new Syllable("adventure",1);
+    testWord = new Syllable("adventure",0);
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(3);  
+  });
+  test('HA.  Should correctly manage silence', () => {
+    testWord = new Syllable("silence",0);
+    testWord.findNextVowel();
+    expect(testWord.syllables).toEqual(2);  //look at handle exceptions, e is last letter
   });
   test('I.  Should correctly manage fire', () => {
     testWord = new Syllable("fire",0);
@@ -49,7 +54,7 @@ describe('Syllable Count', () => {
     expect(testWord.syllables).toEqual(2);  
   });
   test('J.  Should correctly manage prism', () => {
-    testWord = new Syllable("prism",1);
+    testWord = new Syllable("prism",0);
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(2);  
   });
@@ -58,8 +63,13 @@ describe('Syllable Count', () => {
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(1);
   });
-  test('Tester.  Should correctly manage a list of exception words', () => {
+  test('Tester1.  Should correctly manage a list of exception words', () => {
     testWord = new Syllable("An",0);
+    testWord.findNextVowel();
+    expect(testWord.syllables).toEqual(1);
+  });
+  test('Tester2.  Should correctly manage a list of exception words', () => {
+    testWord = new Syllable("The",0);
     testWord.findNextVowel();
     expect(testWord.syllables).toEqual(1);
   });
@@ -68,16 +78,18 @@ describe('Syllable Count', () => {
   
 
 test('L. should correctly return the first word of the first line and count the syllables ', () => {
-  haiku = new Haiku("An");
-  expect(haiku.getWords()).toEqual([["An",1]]);
+  haiku = new Haiku("An old","","");
+  expect(haiku.getWords()).toEqual([[["An",1],["old",1]],[['',0]],[['',0]]]);
 }); 
 
-beforeEach(() => {
-  haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
-}) 
+test('M. should correctly split first line into words and calculate the number of syllables', () => {
+  haiku = new Haiku("An old silent pond","","")
+  expect(haiku.getWords()).toEqual([[["An",1],["old",1],["silent",2],["pond",1]],[['',0]],[['',0]]]);
+});
 
-test('should correctly split first line into words and calculate the number of syllables', () => {
-  expect(haiku.getWords()).toEqual([["An",1],["old",1],["silent",2],["pond",1]]);
+test('N. should correctly split the haiku into words and calculate the number of syllables', () => {
+  haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
+  expect(haiku.getWords()).toEqual([[["An",1],["old",1],["silent",2],["pond",1]],[["A",1],["frog",1],["jumps",1],["into",2],["the",1],["pond-",1]],[["Splash!",1],["Silence",2],["again",2]]]);
 });
 });
 /*

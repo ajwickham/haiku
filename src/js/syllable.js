@@ -9,12 +9,17 @@ export default class Syllable {
     let splitWord = (this.word).split("");
     for(let i = 0; i<splitWord.length; i++) {
       if(/[aeiouyAEIOU]/.test(splitWord[i])) {
-        count = count + 1;
-        this.syllables = count;
-        i = this.findNextConsonant(i);
+        if((i===splitWord.length -1) && (splitWord[i] === "e")) {
+          this.handleExceptions(splitWord,splitWord.length);
+          return;
+        }    //if the last letter is an e don't add to the syllables count
+        else {
+          this.syllables = this.syllables +1;
+          i = this.findNextConsonant(i); 
+        };  
       };
     };
-    if(count===0) {   //if the word has no vowels        
+    if(this.syllables===0) {   //if the word has no vowels        
       this.handleExceptions(splitWord,splitWord.length);
     }    
   } 
@@ -26,19 +31,25 @@ export default class Syllable {
         if(/[aeiouyAEIOU]/.test(splitWord[j])===false) {  //finds next consonant   
           j = this.handleExceptions(splitWord,j);
           i=j;
-          return i;
-        }
-        //return i; //goes back to find next vowel
+        return i; //goes back to find next vowel
+        }  
         /*else {
           if (j===(splitWord.length-1)) {
             this.syllables = this.syllables + 1  // if no consonants add 1 to syllable count (employee) 
           }  
         }*/
       }
-      this.syllables = this.syllables + 1   
+      /*if(/[aiouyAIOU]/.test(splitWord[j])===true) {  
+        //if it hasn't found a consonant above and the vowel is not an e then it 
+        //returns to vowel search and end   
+        j = this.handleExceptions(splitWord,j);
+        i = j
+        return i    
+      };*/  
+      //this.syllables = this.syllables + 1  // This ???
     }  
-    i = j
-    return i //if it finds a consonant it returns to find next vowel  
+    /*i = j
+    return i*/ //if it finds a consonant it returns to find next vowel  
       //count = count + 1    
   }
   handleExceptions(splitWord,j) {
@@ -46,14 +57,15 @@ export default class Syllable {
       (j+1 === (splitWord.length-1))) { // if e is last letter and we are at penultimate letter stop counting
       j = splitWord.length
       if(/i/.test(splitWord[j-3])&&(/r/.test(splitWord[j-2]))) {
-        this.syllables = this.syllables + 1;   
+        this.syllables = this.syllables + 1;  //if it ends in ire add a syllable 
       }
     }
-    if((j>splitWord.length-3)&&(/s/.test(splitWord[splitWord.length-2]))&&(/m/.test(splitWord[splitWord.length-1]))) {
-      this.syllables = this.syllables + 1; 
+    if((j>splitWord.length-3)&&(/s/.test(splitWord[splitWord.length-2]))&&
+      (/m/.test(splitWord[splitWord.length-1]))) { //if it ends in sm (prism) add a syllable
+        this.syllables = this.syllables + 1; 
     } 
     for(let k = 0; k<exceptionWords.length; k=k+1) {
-      if(exceptionWords[k][0]===this.word) {
+      if(exceptionWords[k][0].toUpperCase()===(this.word).toUpperCase()) {
         this.syllables = exceptionWords[k][1];
         j = splitWord.length;
         return j;
@@ -62,4 +74,4 @@ export default class Syllable {
   return j
   } 
 }
-const exceptionWords = [["ear",2],["eel",2],["hmm",1],["tiara",3]]
+const exceptionWords = [["ear",2],["eel",2],["hmm",1],["tiara",3],["employee",3],["the",1]]
