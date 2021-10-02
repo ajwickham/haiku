@@ -3,9 +3,11 @@ export default class Syllable {
       this.word = word;
       this.syllables = syllables;
     }
-    
+  
+  
+
+
   findNextVowel(){  //if it finds a vowel it adds 1 syllable
-    let count =0;
     let splitWord = (this.word).split("");
     for(let i = 0; i<splitWord.length; i++) {
       if(/[aeiouyAEIOU]/.test(splitWord[i])) {
@@ -33,24 +35,8 @@ export default class Syllable {
           i=j;
         return i; //goes back to find next vowel
         }  
-        /*else {
-          if (j===(splitWord.length-1)) {
-            this.syllables = this.syllables + 1  // if no consonants add 1 to syllable count (employee) 
-          }  
-        }*/
       }
-      /*if(/[aiouyAIOU]/.test(splitWord[j])===true) {  
-        //if it hasn't found a consonant above and the vowel is not an e then it 
-        //returns to vowel search and end   
-        j = this.handleExceptions(splitWord,j);
-        i = j
-        return i    
-      };*/  
-      //this.syllables = this.syllables + 1  // This ???
     }  
-    /*i = j
-    return i*/ //if it finds a consonant it returns to find next vowel  
-      //count = count + 1    
   }
   handleExceptions(splitWord,j) {
     if(/e/.test(splitWord[j+1])&&

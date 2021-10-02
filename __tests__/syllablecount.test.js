@@ -91,19 +91,24 @@ test('N. should correctly split the haiku into words and calculate the number of
   haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
   expect(haiku.getWords()).toEqual([[["An",1],["old",1],["silent",2],["pond",1]],[["A",1],["frog",1],["jumps",1],["into",2],["the",1],["pond-",1]],[["Splash!",1],["Silence",2],["again",2]]]);
 });
+test('O. Should correct return total number of syllables', () => {
+  haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
+  expect(haiku.isItAHaiku()).toEqual(17);
 });
-/*
-describe('haiku', () => {
+test('P. Should place the number of syllables in first line', () => {
+  haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
+  haiku.isItAHaiku();
+  expect(haiku.firstLineSyllables).toEqual(5);
+});
+test('Q. Should place the number of syllables in all lines', () => {
+  haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
+  haiku.isItAHaiku();
+  expect(haiku.firstLineSyllables).toEqual(5);
+  expect(haiku.secondLineSyllables).toEqual(7);
+  expect(haiku.thirdLineSyllables).toEqual(5);
+});
 
-  let haiku;
 
-  beforeEach(() => {
-      haiku = new Haiku("An old silent pond","A frog jumps into the pond-","Splash! Silence again");
-  })
-test('should correctly split first line into words and calculate the number of syllables', () => {
-  expect(haiku.getWords()).toEqual([["An",1],["old",1],["silent",2],["pond",1]]);
+
+
 });
-test('should correctly count the syllables in each word', () => {
-  expect(haiku.countSyllables()).toEqual([["An",1],["old",1],["silent",2],["pond",1]]);
-});
-});*/
